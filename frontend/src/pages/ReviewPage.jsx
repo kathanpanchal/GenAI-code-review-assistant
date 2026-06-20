@@ -32,7 +32,10 @@ export default function ReviewPage() {
                 setIssues([])
             }
         } catch (err) {
-            setError(err.message || 'Unable to analyze the PR. Please try again.')
+            setError({
+                message: err.message || 'Unable to analyze the PR. Please try again.',
+                code: err.code || 'review_error'
+            })
         } finally {
             setLoading(false)
             setLoadingStep('')

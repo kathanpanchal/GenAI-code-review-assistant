@@ -20,7 +20,10 @@ export async function reviewPullRequest(
     );
 
   if (!response.ok) {
-    throw new Error(await getErrorMessage(response));
+    const { message, code } = await getErrorMessageAndCode(response);
+    const err = new Error(message);
+    err.code = code;
+    throw err;
   }
 
   if (!response.body) {
@@ -49,7 +52,9 @@ export async function reviewPullRequest(
       } else if (event.type === "result") {
         review = event.data;
       } else if (event.type === "error") {
-        throw new Error(event.error?.message || "Unable to analyze the PR.");
+        const err = new Error(event.error?.message || "Unable to analyze the PR.");
+        err.code = event.error?.code || "review_error";
+        throw err;
       }
     }
 
@@ -78,11 +83,17 @@ export async function getMetrics() {
   return response.json();
 }
 
-async function getErrorMessage(response) {
+async function getErrorMessageAndCode(response) {
   try {
     const payload = await response.json();
-    return payload?.error?.message || payload?.detail || "Unable to analyze the PR.";
+    return {
+      message: payload?.error?.message || payload?.detail || "Unable to analyze the PR.",
+      code: payload?.error?.code || "internal_error"
+    };
   } catch {
-    return "Unable to analyze the PR. Please try again.";
+    return {
+      message: "Unable to analyze the PR. Please try again.",
+      code: "internal_error"
+    };
   }
 }
