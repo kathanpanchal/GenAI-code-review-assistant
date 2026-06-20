@@ -1,7 +1,22 @@
 # GenAI Code Review Assistant
 
 An AI-powered GitHub Pull Request reviewer that automatically analyzes code changes, generates review feedback using Google Gemini, and posts comments directly on GitHub Pull Requests.
+## Screenshots
 
+### Home Page
+
+![Home Page](https://github.com/kathanpanchal/GenAI-code-review-assistant/blob/2692a77280188b6d02388da31b18e73f223622f8/assets/screenshots/homePage.png
+)
+
+### Review Results
+
+![Review Results](https://github.com/kathanpanchal/GenAI-code-review-assistant/blob/2692a77280188b6d02388da31b18e73f223622f8/assets/screenshots/action2.png
+)
+
+### Dashboard
+
+![Dashboard](https://github.com/kathanpanchal/GenAI-code-review-assistant/blob/2692a77280188b6d02388da31b18e73f223622f8/assets/screenshots/dashBoard.png
+)
 ## Features
 
 * Automated Pull Request reviews using Google Gemini
